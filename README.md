@@ -28,11 +28,11 @@ execution is returned.
 The `PATH` is queried last to determine if a globaly installed version of
 PHPUnit is available.
 
-If you need to extend the search path (say you have a special version of
-PHPUnit checked out or installed in a local workspace) you can prepend or
+If you need to extend the search path (say you regularly have Composer's vendor
+bin redirected somewhere non-standard like `vendor-bins`) you can prepend or
 append it to `PHPUNIT_PATH`. For example:
 
-    export PHPUNIT_PATH="${PHPUNIT_PATH}:~/workspaces/phpunit/bin"
+    export PHPUNIT_PATH="${PHPUNIT_PATH}:vendor-bins"
 
-This will ensure that `~/workspaces/phpunit-3.7.4/bin` will be checked after the
-other default paths have been checked.
+This will ensure that `vendor-bins` will be checked after the other default
+paths have been checked.
