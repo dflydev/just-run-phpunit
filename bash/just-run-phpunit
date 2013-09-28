@@ -1,0 +1,28 @@
+# Default locations we expect PHPUnit may live
+#
+# It is safe to extend this by exporting a new copy of PHPUNIT_PATH with
+# additional locations. Just make sure that happens after this section of code
+# is run.
+PHPUNIT_PATH=vendor/bin:bin
+
+function phpunit {
+    IFS=":"
+    TEST_PATHS=($PHPUNIT_PATH)
+    for TEST_PATH in "${TEST_PATHS[@]}"
+    do
+        if [ -x "${TEST_PATH}/phpunit" ]
+        then
+            "${TEST_PATH}/phpunit" "$@"
+            return $?
+        fi
+    done
+
+    PHPUNIT_ON_PATH="$(type -P phpunit )"
+    if [ -n "${PHPUNIT_ON_PATH}" ]; then
+        "${PHPUNIT_ON_PATH}" "$@"
+        return $?
+    else
+        echo "phpunit not found in any location we expect it to be found"
+        return 127
+    fi
+}
